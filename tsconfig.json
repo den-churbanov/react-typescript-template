@@ -1,0 +1,58 @@
+{
+  "compilerOptions": {
+    "allowJs" : true,
+    "baseUrl" : "./",
+    "rootDir" : "./",
+    "charset" : "UTF-8",
+    "esModuleInterop" : true,
+    "resolveJsonModule" : true,
+    "jsx" : "react",
+    "module" : "esnext",
+    "lib" : [
+      "dom",
+      "es5",
+      "es2015",
+      "es2016",
+      "esnext",
+      "DOM.Iterable"
+    ],
+    "outDir" : "./dist",
+    "moduleResolution" : "node",
+    "target" : "ES5",
+    "sourceMap" : true,
+    "typeRoots" : [
+      "src/@types"
+    ],
+    "types" : [
+      "node"
+    ],
+    "watch" : true,
+    "preserveConstEnums" : true,
+    "suppressImplicitAnyIndexErrors" : true,
+    "removeComments": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "downlevelIteration": true,
+    "skipLibCheck": true,
+    //		"strictNullChecks": true,
+    //    "noUnusedLocals": true,
+    //    "noUnusedParameters": true,
+    //    "noEmit": true,
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "plugins": []
+  },
+  "include": [
+    "./src/**/*",
+    "./public/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build"
+  ]
+}

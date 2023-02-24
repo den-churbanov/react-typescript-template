@@ -1,0 +1,192 @@
+Настройка линтинга и husky с pre-commit хуками.
+____________________________________________________________________________________________
+
+package.json:
+
+devDependencies:
+    "@typescript-eslint/eslint-plugin": "5.51.0",
+    "@typescript-eslint/parser": "5.51.0",
+    "husky": "8.0.0",
+    "lint-staged": "13.0.3",
+    "prettier": "2.7.1",
+    "eslint": "8.34.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-typescript": "17.0.0",
+    "eslint-config-prettier": "8.6.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-webpack-plugin": "3.2.0",
+
+scripts:
+    "prepare": "husky install && npx husky add .husky/pre-commit \"npm run precommit\"",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix --color",
+    "precommit": "lint-staged",
+    "postcommit": "git update-index --again"
+
+"main": "src/index.tsx",
+____________________________________________________________________________________________
+
+.gitignore:
+
+    .husky
+____________________________________________________________________________________________
+
+.eslintrc.js
+
+module.exports = {
+  root: true,
+  env: {
+    node: true,
+  },
+  parser: '@typescript-eslint/parser',
+  plugins: [
+    '@typescript-eslint',
+    'prettier',
+  ],
+  extends: [
+    'airbnb',
+    'airbnb-typescript',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'plugin:react/recommended',
+    'prettier',
+  ],
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module',
+    ecmaFeatures: {jsx: true},
+    project: './tsconfig.json',
+  },
+  rules: {
+    // делает необязательным export default в модулях
+    'import/prefer-default-export': 'off',
+    // кидает ошибку если длина строки больше 150 символов
+    'max-len': ['error', {code: 150}],
+    // разрешает нижнее подчёркивание в переменных
+    'no-underscore-dangle': 'off',
+    // разрешает инкремент
+    'no-plusplus': 'off',
+    // кидает warning на консоль и дебаггер при разработке, в проде - ошибку, оборвёт сборку
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-return-assign': 'off',
+    'no-continue': 'off',
+    'no-template-curly-in-string': 'off',
+    // не разрешает писать объект в одну строку больше 5 параметров
+    'object-curly-newline': ['error', {
+      ObjectExpression: {
+        multiline: true,
+        minProperties: 5,
+        consistent: true,
+      },
+      ObjectPattern: {
+        multiline: true,
+        minProperties: 5,
+        consistent: true,
+      },
+    }],
+    'guard-for-in': 'off',
+    // перенос строк: \r\n for CRLF
+    'linebreak-style': ['error', 'windows'],
+    'class-methods-use-this': 'off',
+    // требует пробел перед началом комментария, добавляет маркеры #region, #endregion для разделения кода
+    'spaced-comment': [
+      'error',
+      'always',
+      {
+        markers: [
+          '#region',
+          '#endregion',
+        ],
+      },
+    ],
+    'no-param-reassign': 'off',
+    'indent': 'off',
+    // выключает отслеживание циклических импортов
+    'import/no-cycle': 'off',
+    'import/extensions': 'off',
+
+    'no-restricted-syntax': 'off',
+    'arrow-body-style': 'off',
+    'consistent-return': 'off',
+    // обязательный semicolon
+    semi: 'off',
+    // одинарные кавычки по дэфолту в ts и tsx
+    quotes: [
+      'error',
+      'single',
+      {
+        allowTemplateLiterals: true,
+        avoidEscape: true,
+      },
+    ],
+
+    // TYPESCRIPT
+    // разрешает использовать require
+    '@typescript-eslint/no-var-requires': 0,
+    // разрешает использовать any
+    '@typescript-eslint/no-explicit-any': 'off',
+    // разрешает объявлять блочные переменные с таким же именем, как в scope выше
+    '@typescript-eslint/no-shadow': 'off',
+    '@typescript-eslint/lines-between-class-members': 'off',
+    // разрешает прокидывать функции без this
+    '@typescript-eslint/unbound-method': 'off',
+    '@typescript-eslint/no-unsafe-argument': 'off',
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: 'variableLike',
+        format: ['camelCase', 'PascalCase', 'snake_case', 'UPPER_CASE'],
+      }
+    ],
+    '@typescript-eslint/no-use-before-define': 'off',
+    '@typescript-eslint/no-unsafe-return': 'off',
+    '@typescript-eslint/no-unsafe-assignment': 'off',
+    '@typescript-eslint/no-unsafe-call': 'off',
+    '@typescript-eslint/no-unsafe-member-access': 'off',
+    '@typescript-eslint/no-misused-promises': 'off',
+    '@typescript-eslint/no-floating-promises': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'off',
+
+    // REACT
+    // двойные кавычки по дэфолту в JSX разметке
+    'jsx-quotes': ['error', 'prefer-double'],
+    // не разрешает передавать строковые пропы в фигурных скобках: prop = {'some string'} => prop = "some string"
+    'react/jsx-curly-brace-presence': [2, {
+      props: 'never',
+      children: 'never',
+    }],
+    'react/no-array-index-key': 'off',
+    'react/jsx-pascal-case': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/prefer-stateless-function': 'off',
+    'react/button-has-type': 'off',
+    'react/require-default-props': 'off',
+    'react/prop-types': 'off',
+    'react/no-unused-prop-types': 'off',
+    'react/destructuring-assignment': 'off',
+
+    'jsx-a11y/no-autofocus': 'off',
+    // не разрешает вешать на div onClick и другие события, требует указать атрибут role,а там + другие правила
+    'jsx-a11y/no-static-element-interactions': 'off',
+    // требует на все элементы, на которых висят слушатели клика, вешать ещё onKeyPress
+    'jsx-a11y/click-events-have-key-events': 'off',
+
+    // aria атрибуты на кнопках
+    'jsx-a11y/role-supports-aria-props': 'off',
+    'react/display-name': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'react/function-component-definition': [2, {'namedComponents': 'arrow-function'}],
+  },
+  settings: {react: {version: 'detect'}},
+};
+____________________________________________________________________________________________
+
+.eslintignore
+
+webpack
+.eslintrc.js
+.babelrc.js
+webpack.config.babel.js
+prettier.config.js

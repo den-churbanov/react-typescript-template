@@ -1,0 +1,43 @@
+@use './theming' as theming;
+
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex($align, $justify, $direction) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $direction;
+}
+
+@mixin scrollbar($width) {
+  scrollbar-width: thin;
+  @include theming.theme(scrollbar-color, borderDark, transparent);
+
+  &::-webkit-scrollbar-track-piece {
+    background: transparent;
+    width: $width;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @include theming.theme(background-color, borderDark);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar {
+    display: block;
+    width: $width;
+    height: $width;
+  }
+}
+
+%primary_scrollbar {
+  @include scrollbar(8px);
+}
+
+%small_scrollbar {
+  @include scrollbar(4px);
+}

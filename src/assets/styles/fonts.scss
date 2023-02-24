@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-feature-settings: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+$layoutWidth: 1920;
+$minLayoutWidth: 320;
+
+@mixin adaptive-font($pcSize, $mobSize) {
+  $diff: $pcSize - $mobSize;
+  $widthDifference: $layoutWidth - $minLayoutWidth;
+  font-size: calc(#{$mobSize + px} + #{$diff} * ((100vw - #{$minLayoutWidth + px}) / #{$widthDifference}));
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p,
+header,
+footer,
+div,
+input,
+button,
+textarea {
+  font-family: Roboto, Arial, sans-serif;
+}

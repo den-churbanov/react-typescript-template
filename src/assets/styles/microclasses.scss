@@ -1,0 +1,119 @@
+//m-1 mt-2 p-0 pt-2 etc
+
+$i: 0;
+@while $i < 200 {
+  .m-#{$i} {
+    margin: #{$i}px !important;
+  }
+  .p-#{$i} {
+    padding: #{$i}px !important;
+  }
+
+  @each $side-name, $side-symbol in (top: t, right: r, bottom: b, left: l) {
+    .m#{$side-symbol}-#{$i} {
+      margin-#{$side-name}: #{$i}px !important;
+    }
+    .p#{$side-symbol}-#{$i} {
+      padding-#{$side-name}: #{$i}px !important;
+    }
+  }
+  $i: $i + 1;
+}
+
+
+$i: 5;
+@while $i < 500 {
+  .w-#{$i} {
+    width: #{$i}px;
+  }
+  .h-#{$i} {
+    height: #{$i}px;
+  }
+  $i: $i + 1;
+}
+
+@while $i < 1000 {
+  .w-#{$i} {
+    width: #{$i}px;
+  }
+  .h-#{$i} {
+    height: #{$i}px;
+  }
+  $i: $i + 5;
+}
+
+
+$i: 10;
+@while $i < 50 {
+  .font-#{$i} {
+    font-size: #{$i}px;
+    line-height: #{$i+3}px;
+  }
+  $i: $i + 1;
+}
+
+
+.d-flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.flex-col-reverse {
+  flex-direction: column-reverse;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
+}
+
+//justify-content-center { justify-content: center; }
+@each $key, $value in (
+        center: center,
+        start: start,
+        end: end,
+        around: space-around,
+        between: space-between,
+        evenly: space-evenly,
+        stretch: stretch,
+) {
+  .justify-content-#{$key} {
+    justify-content: #{$value};
+  }
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
+@each $i in (1, 2, 3, 4, 5, 6, 7, 8) {
+  .flex-#{$i} {
+    flex: #{$i};
+  }
+}
+
+.m-auto {
+  margin: 0 auto
+}
+
+.display-none {
+  display: none !important;
+}

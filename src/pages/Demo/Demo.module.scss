@@ -1,0 +1,55 @@
+@use '@/assets/styles/theming' as theming;
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 100%;
+  width: 100%;
+  @include theming.theme(background, backgroundLight);
+
+  h1 {
+    font-size: 40px;
+    line-height: 50px;
+    @include theming.theme(color, borderDark);
+  }
+
+  .logo {
+    margin-top: 20px;
+    width: 200px;
+    height: 200px;
+    @include theming.theme(fill, borderDark);
+    animation: spin 20s infinite linear;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .change_theme_btn {
+    margin-top: 20px;
+    background: transparent;
+    padding: 10px 20px;
+    font-size: 20px;
+    transition: all 300ms ease;
+    @include theming.theme(color, borderDark);
+    @include theming.theme(border, borderDark, 3px solid);
+
+    &:hover {
+      @include theming.theme(background, borderDark);
+      @include theming.theme(color, backgroundLight);
+      @include theming.theme(border, backgroundLight, 3px solid);
+    }
+
+    border-radius: 10px;
+  }
+}
+

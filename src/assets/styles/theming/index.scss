@@ -1,0 +1,14 @@
+$themes: ();
+$themeValues: ();
+
+@import 'mixins';
+@import 'themes/light';
+
+@include generateThemeMappings(light, $light);
+
+@import 'themes/dark';
+@include generateThemeMappings(dark, $dark);
+
+html {
+  @include generateThemeVariables();
+}
